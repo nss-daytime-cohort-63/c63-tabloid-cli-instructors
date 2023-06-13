@@ -1,28 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TabloidCLI.Models;
+using TabloidCLI.Repositories;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
-    public class TagManager : IUserInterfaceManager
+    public class PostManager : IUserInterfaceManager
     {
         private readonly IUserInterfaceManager _parentUI;
-		private TagRepository _tagRepository;
+        private PostRepository _postRepository;
 
-		public TagManager(IUserInterfaceManager parentUI, string connectionString)
+        public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
-			_tagRepository = new TagRepository(connectionString);
+            _postRepository = new PostRepository(connectionString);
+        }
 
-		}
-
-		public IUserInterfaceManager Execute()
+        public IUserInterfaceManager Execute()
         {
-            Console.WriteLine("Tag Menu");
-            Console.WriteLine(" 1) List Tags");
-            Console.WriteLine(" 2) Add Tag");
-            Console.WriteLine(" 3) Edit Tag");
-            Console.WriteLine(" 4) Remove Tag");
+            Console.WriteLine("Post Menu");
+            Console.WriteLine(" 1) List Posts");
+            Console.WriteLine(" 2) Add Post");
+            Console.WriteLine(" 3) Edit Post");
+            Console.WriteLine(" 4) Remove post");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -51,13 +54,13 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void List()
         {
-			Console.WriteLine("Current tags: ");
-			List<Tag> tags = _tagRepository.GetAll();
-			foreach(Tag t in tags) {
-				Console.WriteLine(t.Id + ") " + t.Name);
-			}
-			Console.WriteLine("");
-
+            Console.WriteLine("Current posts: ");
+            List<Post> posts = _postRepository.GetAll();
+            foreach (Post p in posts)
+            {
+                Console.WriteLine($"{p.Id} )  {p.Title} : {p.Url}");
+            }
+            Console.WriteLine("");
         }
 
         private void Add()
