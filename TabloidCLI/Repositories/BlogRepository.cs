@@ -30,10 +30,6 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    // cmd.CommandText = @"SELECT id,
-                    //                            Title,
-                    //                            Url
-                    //                       FROM Blog";
                     cmd.CommandText = @"SELECT b.Id AS BlogId,
                                                b.Title,
                                                b.Url,
